@@ -1,0 +1,15 @@
+.option {
+  width: 100%;
+  font-size: 14px;
+  position: relative;
+  padding: 6px 15px;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid var(--borderColor);
+  transition: 0.1s linear;
+}
+
+.option:hover,
+.option.is--selected {
+  background-color: var(--hoverColor);
+}
