@@ -1,10 +1,24 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: 'Silka', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background: #f1f1f1;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+p {
+  margin: 0;
+}
+
+input::placeholder {
+  font-family: 'Open Sans', sans-serif;
 }
