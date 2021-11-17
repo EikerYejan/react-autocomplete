@@ -64,7 +64,7 @@ class AutoComplete extends React.Component {
     const optionsToShow = typeof searchTerm === 'string' ? matchedOptions : options
 
     return (
-      <div ref={this.wrapperRef} className={`AutoComplete__ ${loading && 'is--loading'}`}>
+      <div ref={this.wrapperRef} className="AutoComplete__">
         <p className="AutoComplete__label">{label}</p>
         <div className="AutoComplete__handle">
           <input
@@ -73,7 +73,6 @@ class AutoComplete extends React.Component {
             placeholder={placeholder}
             type="text"
             className="AutoComplete__input"
-            disabled={loading}
           />
           {loading ? (
             <Loader className="AutoComplete__loader" />
