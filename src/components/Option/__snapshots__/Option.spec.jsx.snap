@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Option /> Should render 1`] = `
+<body>
+  <div>
+    <li
+      class="option is--selected"
+      title="Label"
+    >
+      Label
+    </li>
+  </div>
+</body>
+`;
