@@ -1,11 +1,10 @@
 import './App.css'
-import AutoComplete from './components/AutoComplete'
-import mockOptions from './mocks/characters.json'
+import MarvelCharacters from './components/MarvelCharacters'
 
 function App() {
   return (
     <div className="App">
-      <AutoComplete options={mockOptions.data} label="Marvel Characters" placeholder="Type a name" />
+      <MarvelCharacters />
     </div>
   )
 }

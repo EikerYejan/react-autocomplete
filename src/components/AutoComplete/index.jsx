@@ -11,6 +11,7 @@ class AutoComplete extends React.Component {
       showOptions: props?.defaultOpen ?? false,
     }
     this.wrapperRef = createRef(null)
+    this.debounceTimeout = createRef()
   }
 
   onWindowClick = (e) => {
@@ -27,18 +28,22 @@ class AutoComplete extends React.Component {
     return this.setState((prev) => ({ ...(prev ?? {}), searchTerm: selectedOption, showOptions: false }))
   }
 
-  getMatch = (searchTerm) => {
-    const regex = new RegExp(searchTerm)
+  onSearchChange = (e) => {
+    const { value } = e.target
+    this.setState((prev) => ({
+      ...(prev ?? {}),
+      searchTerm: value,
+    }))
 
-    return this.props.options?.filter((option) => regex.test(option.label))
+    if (this.debounceTimeout.current) clearTimeout(this.debounceTimeout.current)
+    this.debounceTimeout.current = setTimeout(this.onSearchFinish, 500, value)
   }
 
-  onSearchChange = (e) => {
-    const matchedOptions = this.getMatch(e.target.value)
+  onSearchFinish = async (value) => {
+    const matchedOptions = await this.props.onSearch(value)
 
     return this.setState((prev) => ({
       ...(prev ?? {}),
-      searchTerm: e?.target?.value,
       showOptions: true,
       matchedOptions,
     }))
@@ -55,7 +60,8 @@ class AutoComplete extends React.Component {
   render() {
     const { showOptions, searchTerm, matchedOptions } = this.state
     const { label, placeholder, options = [], loading } = this.props
-    const optionsToShow = matchedOptions && matchedOptions.length > 0 ? matchedOptions : options
+
+    const optionsToShow = typeof searchTerm === 'string' ? matchedOptions : options
 
     return (
       <div ref={this.wrapperRef} className={`AutoComplete__ ${loading && 'is--loading'}`}>
