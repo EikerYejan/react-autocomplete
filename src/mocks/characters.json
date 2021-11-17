@@ -1,12 +1,84 @@
 {
   "data": [
-    { "label": "Option 1", "value": "OPT1" },
-    { "label": "Term 2", "value": "OPT2" },
-    { "label": "Terminous 4", "value": "OPT3" },
-    { "label": "Option 4", "value": "OPT4" },
-    { "label": "Option 5", "value": "OPT5" },
-    { "label": "Option 6", "value": "OPT6" },
-    { "label": "Option 7", "value": "OPT7" },
-    { "label": "Option 8", "value": "OPT8" }
+    {
+      "label": "Iron Cross Army",
+      "value": 1011379
+    },
+    {
+      "label": "Iron Fist (Bei Bang-Wen)",
+      "value": 1011318
+    },
+    {
+      "label": "Iron Fist (Danny Rand)",
+      "value": 1009367
+    },
+    {
+      "label": "Iron Fist (Orson Randall)",
+      "value": 1010888
+    },
+    {
+      "label": "Iron Fist (Quan Yaozu)",
+      "value": 1011413
+    },
+    {
+      "label": "Iron Fist (USM)",
+      "value": 1016839
+    },
+    {
+      "label": "Iron Fist (Wu Ao-Shi)",
+      "value": 1011412
+    },
+    {
+      "label": "Iron Lad",
+      "value": 1010704
+    },
+    {
+      "label": "Iron Man",
+      "value": 1009368
+    },
+    {
+      "label": "Iron Man (Iron Man 3 - The Official Game)",
+      "value": 1017320
+    },
+    {
+      "label": "Iron Man (LEGO Marvel Super Heroes)",
+      "value": 1017294
+    },
+    {
+      "label": "Iron Man (Marvel Heroes)",
+      "value": 1017310
+    },
+    {
+      "label": "Iron Man (Marvel War of Heroes)",
+      "value": 1017326
+    },
+    {
+      "label": "Iron Man (Ultimate)",
+      "value": 1010935
+    },
+    {
+      "label": "Iron Man/Tony Stark (MAA)",
+      "value": 1017104
+    },
+    {
+      "label": "Iron Monger",
+      "value": 1009371
+    },
+    {
+      "label": "Iron Patriot",
+      "value": 1009487
+    },
+    {
+      "label": "Iron Patriot (James Rhodes)",
+      "value": 1009538
+    },
+    {
+      "label": "Ironclad",
+      "value": 1010844
+    },
+    {
+      "label": "Ironheart (Riri Williams)",
+      "value": 1017831
+    }
   ]
 }
