@@ -1,10 +1,12 @@
 import './App.css'
-import MarvelCharacters from './components/MarvelCharacters'
+import APIDataAutoComplete from './components/APIDataAutoComplete'
+import MockDataAutoComplete from './components/MockDataAutoComplete'
 
 function App() {
   return (
     <div className="App">
-      <MarvelCharacters />
+      <MockDataAutoComplete />
+      <APIDataAutoComplete />
     </div>
   )
 }
