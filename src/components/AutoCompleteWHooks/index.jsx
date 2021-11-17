@@ -11,7 +11,7 @@ const AutoCompleteWithHooks = (props) => {
   const debounceTimeout = useRef()
   const wrapperRef = useRef(null)
 
-  const { label, placeholder, options = [], loading, onSearch } = props
+  const { label, placeholder, options = [], loading, onSearch, onSelect } = props
 
   const onWindowClick = (e) => {
     if (wrapperRef?.current && !wrapperRef.current.contains(e.target)) {
@@ -22,8 +22,10 @@ const AutoCompleteWithHooks = (props) => {
   const onHandleClick = () => setShowOptions((prev) => !prev)
 
   const onOptionClick = (selectedOption) => {
+    if (onSelect) onSelect(selectedOption)
+
     setShowOptions(false)
-    setSearchTerm(selectedOption)
+    setSearchTerm(selectedOption.label)
   }
 
   const onSearchFinish = async (value) => {
@@ -77,7 +79,7 @@ const AutoCompleteWithHooks = (props) => {
             optionsToShow.map((option) => (
               <Option
                 isSelected={option.label === searchTerm || option.value === searchTerm}
-                onClick={() => onOptionClick(option.label)}
+                onClick={() => onOptionClick(option)}
                 key={option.value}
                 {...option}
               />

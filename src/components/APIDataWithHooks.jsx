@@ -28,7 +28,7 @@ const APIDataWithHooks = () => {
       loading={loading}
       options={options}
       onSearch={fetchData}
-      label="Marvel Characters (API Data)"
+      label="Marvel Characters (API Data With Hooks)"
       placeholder="Type a name"
     />
   )

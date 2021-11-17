@@ -25,7 +25,9 @@ class AutoComplete extends React.Component {
   }
 
   onOptionClick = (selectedOption) => {
-    return this.setState((prev) => ({ ...(prev ?? {}), searchTerm: selectedOption, showOptions: false }))
+    if (this.props?.onSelect) this.props.onSelect(selectedOption)
+
+    return this.setState((prev) => ({ ...(prev ?? {}), searchTerm: selectedOption.label, showOptions: false }))
   }
 
   onSearchChange = (e) => {
@@ -90,7 +92,7 @@ class AutoComplete extends React.Component {
               optionsToShow.map((option) => (
                 <Option
                   isSelected={option.label === searchTerm || option.value === searchTerm}
-                  onClick={() => this.onOptionClick(option.label)}
+                  onClick={() => this.onOptionClick(option)}
                   key={option.value}
                   {...option}
                 />
