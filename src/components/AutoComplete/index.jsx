@@ -101,6 +101,7 @@ class AutoComplete extends React.Component {
             ) : (
               optionsToShow.map((option) => (
                 <Option
+                  searchTerm={searchTerm}
                   data-testid="autocomplete-option"
                   isSelected={option.label === searchTerm || option.value === searchTerm}
                   onClick={() => this.onOptionClick(option)}

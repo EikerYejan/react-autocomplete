@@ -4,7 +4,7 @@ import Loader from '../Loader'
 import '../AutoComplete/AutoComplete.css'
 
 const AutoCompleteWithHooks = (props) => {
-  const [showOptions, setShowOptions] = useState(false)
+  const [showOptions, setShowOptions] = useState(props?.defaultOpen ?? false)
   const [searchTerm, setSearchTerm] = useState()
   const [matchedOptions, setMatchedOptions] = useState([])
 
@@ -66,7 +66,7 @@ const AutoCompleteWithHooks = (props) => {
         {loading ? (
           <Loader className="AutoComplete__loader" />
         ) : (
-          <button onClick={onHandleClick} type="button" title="Expand" class="AutoComplete__expand">
+          <button onClick={onHandleClick} type="button" title="Expand" className="AutoComplete__expand">
             <img src={`/images/${showOptions ? 'expand_up' : 'expand'}.svg`} alt="expand" />
           </button>
         )}
@@ -78,6 +78,7 @@ const AutoCompleteWithHooks = (props) => {
           ) : (
             optionsToShow.map((option) => (
               <Option
+                searchTerm={searchTerm}
                 isSelected={option.label === searchTerm || option.value === searchTerm}
                 onClick={() => onOptionClick(option)}
                 key={option.value}

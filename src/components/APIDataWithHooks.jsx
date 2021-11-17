@@ -29,6 +29,7 @@ const APIDataWithHooks = () => {
 
   return (
     <AutoCompleteWithHooks
+      defaultOpen
       loading={loading}
       options={options}
       onSearch={fetchData}
