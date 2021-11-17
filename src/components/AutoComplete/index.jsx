@@ -1,7 +1,7 @@
 import React, { createRef } from 'react'
-import './AutoComplete.css'
 import Option from '../Option/Option'
 import Loader from '../Loader'
+import './AutoComplete.css'
 
 class AutoComplete extends React.Component {
   constructor(props) {
