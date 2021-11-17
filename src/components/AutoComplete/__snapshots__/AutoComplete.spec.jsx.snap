@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AutoComplete /> Should show options list when clicking in the handle 1`] = `
+<body>
+  <div>
+    <div
+      class="AutoComplete__"
+    >
+      <p
+        class="AutoComplete__label"
+      >
+        Label
+      </p>
+      <div
+        class="AutoComplete__handle"
+      >
+        <input
+          class="AutoComplete__input"
+          data-testid="autocomplete-input"
+          type="text"
+          value=""
+        />
+        <button
+          class="AutoComplete__expand"
+          data-testid="autocomplete-handle"
+          title="Expand"
+          type="button"
+        >
+          <img
+            alt="expand"
+            src="/images/expand_up.svg"
+          />
+        </button>
+      </div>
+      <ul
+        class="AutoComplete__options"
+      >
+        <li
+          class="option false"
+          data-testid="autocomplete-option"
+          title="Option 1"
+          value="OPT1"
+        >
+          Option 1
+        </li>
+        <li
+          class="option false"
+          data-testid="autocomplete-option"
+          title="Option 4"
+          value="OPT4"
+        >
+          Option 4
+        </li>
+        <li
+          class="option false"
+          data-testid="autocomplete-option"
+          title="Option 5"
+          value="OPT5"
+        >
+          Option 5
+        </li>
+        <li
+          class="option false"
+          data-testid="autocomplete-option"
+          title="Option 6"
+          value="OPT6"
+        >
+          Option 6
+        </li>
+        <li
+          class="option false"
+          data-testid="autocomplete-option"
+          title="Option 7"
+          value="OPT7"
+        >
+          Option 7
+        </li>
+        <li
+          class="option false"
+          data-testid="autocomplete-option"
+          title="Option 8"
+          value="OPT8"
+        >
+          Option 8
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+`;

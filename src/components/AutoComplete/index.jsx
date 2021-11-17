@@ -9,6 +9,7 @@ class AutoComplete extends React.Component {
 
     this.state = {
       showOptions: props?.defaultOpen ?? false,
+      searchTerm: '',
     }
     this.wrapperRef = createRef(null)
     this.debounceTimeout = createRef()
@@ -33,7 +34,7 @@ class AutoComplete extends React.Component {
   onSearchChange = (e) => {
     const { value } = e.target
     this.setState((prev) => ({
-      ...(prev ?? {}),
+      ...prev,
       searchTerm: value,
     }))
 
@@ -45,7 +46,7 @@ class AutoComplete extends React.Component {
     const matchedOptions = await this.props.onSearch(value)
 
     return this.setState((prev) => ({
-      ...(prev ?? {}),
+      ...prev,
       showOptions: true,
       matchedOptions,
     }))
@@ -61,9 +62,9 @@ class AutoComplete extends React.Component {
 
   render() {
     const { showOptions, searchTerm, matchedOptions } = this.state
-    const { label, placeholder, options = [], loading } = this.props
+    const { label, placeholder, options, loading } = this.props
 
-    const optionsToShow = typeof searchTerm === 'string' ? matchedOptions : options
+    const optionsToShow = typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
 
     return (
       <div ref={this.wrapperRef} className="AutoComplete__">
@@ -75,11 +76,18 @@ class AutoComplete extends React.Component {
             placeholder={placeholder}
             type="text"
             className="AutoComplete__input"
+            data-testid="autocomplete-input"
           />
           {loading ? (
-            <Loader className="AutoComplete__loader" />
+            <Loader data-testid="autocomplete-loader" className="AutoComplete__loader" />
           ) : (
-            <button onClick={this.onHandleClick} type="button" title="Expand" class="AutoComplete__expand">
+            <button
+              data-testid="autocomplete-handle"
+              onClick={this.onHandleClick}
+              type="button"
+              title="Expand"
+              className="AutoComplete__expand"
+            >
               <img src={`/images/${showOptions ? 'expand_up' : 'expand'}.svg`} alt="expand" />
             </button>
           )}
@@ -87,10 +95,13 @@ class AutoComplete extends React.Component {
         {showOptions && (
           <ul className="AutoComplete__options">
             {!optionsToShow || optionsToShow.length === 0 ? (
-              <li className="AutoComplete__empty-options">No data available</li>
+              <li data-testid="autocomplete-no-data-item" className="AutoComplete__empty-options">
+                No data available
+              </li>
             ) : (
               optionsToShow.map((option) => (
                 <Option
+                  data-testid="autocomplete-option"
                   isSelected={option.label === searchTerm || option.value === searchTerm}
                   onClick={() => this.onOptionClick(option)}
                   key={option.value}
