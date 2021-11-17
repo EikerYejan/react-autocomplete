@@ -5,3 +5,12 @@ export const getMatch = (searchTerm, options) => {
 }
 
 export const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export const formatCharacher = (character) => {
+  const { name, id } = character
+
+  return {
+    label: name,
+    value: id,
+  }
+}
