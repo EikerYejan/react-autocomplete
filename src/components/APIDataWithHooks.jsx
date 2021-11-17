@@ -8,15 +8,19 @@ const APIDataWithHooks = () => {
   const [options, setOptions] = useState([])
 
   const fetchData = async (value) => {
-    setLoading(true)
+    try {
+      setLoading(true)
 
-    const { characters = [] } = await fetchCharacters(value && value.length > 0 ? { nameStartsWith: value } : {})
-    const formattedData = characters.map(formatCharacher)
+      const { characters = [] } = await fetchCharacters(value && value.length > 0 ? { nameStartsWith: value } : {})
+      const formattedData = characters.map(formatCharacher)
 
-    setLoading(false)
-    setOptions(formattedData)
+      setLoading(false)
+      setOptions(formattedData)
 
-    return formattedData
+      return formattedData
+    } catch (error) {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {

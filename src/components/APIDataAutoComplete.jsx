@@ -14,14 +14,18 @@ class APIDataAutoComplete extends React.Component {
   }
 
   fetchData = async (value) => {
-    this.setState((prev) => ({ ...prev, loading: true }))
+    try {
+      this.setState((prev) => ({ ...prev, loading: true }))
 
-    const { characters = [] } = await fetchCharacters(value && value.length > 0 ? { nameStartsWith: value } : {})
-    const formattedData = characters.map(formatCharacher)
+      const { characters = [] } = await fetchCharacters(value && value.length > 0 ? { nameStartsWith: value } : {})
+      const formattedData = characters.map(formatCharacher)
 
-    this.setState((prev) => ({ ...prev, loading: false, options: formattedData }))
+      this.setState((prev) => ({ ...prev, loading: false, options: formattedData }))
 
-    return formattedData
+      return formattedData
+    } catch (error) {
+      this.setState((prev) => ({ ...prev, loading: false }))
+    }
   }
 
   componentDidMount() {
