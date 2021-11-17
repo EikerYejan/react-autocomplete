@@ -11,5 +11,5 @@
 
 .option:hover,
 .option.is--selected {
-  background-color: var(--hoverColor);
+  background-color: var(--lightGrey);
 }

@@ -3,5 +3,6 @@
 :root {
   --blue: #131533;
   --borderColor: #cfd0d6;
-  --hoverColor: #e4e4e4;
+  --lightGrey: #e4e4e4;
+  --white: #fff;
 }
