@@ -3,12 +3,12 @@ import AutoComplete from './AutoComplete'
 import mockOptions from '../mocks/characters.json'
 import { getMatch, timeout } from '../utils'
 
-class MarvelCharacters extends React.Component {
+class MockDataAutoComplete extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      loading: true,
+      loading: false,
       options: mockOptions.data,
     }
   }
@@ -22,23 +22,17 @@ class MarvelCharacters extends React.Component {
     return Promise.resolve(getMatch(value, this.state.options))
   }
 
-  async componentDidMount() {
-    await timeout(2500)
-
-    this.setState({ loading: false })
-  }
-
   render() {
     return (
       <AutoComplete
         loading={this.state.loading}
         onSearch={this.onSearch}
         options={this.state.options}
-        label="Marvel Characters"
+        label="Marvel Characters (Local Data)"
         placeholder="Type a name"
       />
     )
   }
 }
 
-export default MarvelCharacters
+export default MockDataAutoComplete
