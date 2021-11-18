@@ -6,7 +6,7 @@ class Option extends React.Component {
     const { label, isSelected, searchTerm, ...restProps } = this.props
 
     return (
-      <li {...restProps} title={label} className={`option ${isSelected && 'is--selected'}`} dangerouslySetInnerHTML={{__html:  label.replace(searchTerm, `<span class="option-highlight" >${searchTerm}</span>`)}} />  
+      <li {...restProps} title={label} className={`option ${isSelected && 'is--selected'}`} dangerouslySetInnerHTML={{__html:  label.replace(searchTerm, `<span class="option-highlight" >${searchTerm}&nbsp;</span>`)}} />  
     )
   }
 }

@@ -13,7 +13,6 @@
   background-color: var(--blue);
   color: var(--white);
   display: inline-block;
-  margin-right: 4px;
 }
 
 .option:hover,
