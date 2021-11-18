@@ -5,7 +5,7 @@ import '../AutoComplete/AutoComplete.css'
 
 const AutoCompleteWithHooks = (props) => {
   const [showOptions, setShowOptions] = useState(props?.defaultOpen ?? false)
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState()
   const [matchedOptions, setMatchedOptions] = useState([])
 
   const debounceTimeout = useRef()

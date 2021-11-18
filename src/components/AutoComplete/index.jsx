@@ -9,7 +9,6 @@ class AutoComplete extends React.Component {
 
     this.state = {
       showOptions: props?.defaultOpen ?? false,
-      searchTerm: '',
     }
     this.wrapperRef = createRef(null)
     this.debounceTimeout = createRef()
