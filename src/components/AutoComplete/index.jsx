@@ -35,7 +35,7 @@ class AutoComplete extends React.Component {
     const { value } = e.target
     this.setState((prev) => ({
       ...prev,
-      searchTerm: value,
+      searchTerm: value && value?.length > 0 ? value : undefined,
     }))
 
     if (this.debounceTimeout.current) clearTimeout(this.debounceTimeout.current)

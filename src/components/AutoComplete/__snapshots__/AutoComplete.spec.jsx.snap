@@ -41,6 +41,11 @@ exports[`<AutoComplete /> Should show options list when clicking in the handle 1
           title="Option 1"
           value="OPT1"
         >
+          <span
+            class="option-highlight"
+          >
+             
+          </span>
           Option 1
         </li>
         <li
@@ -49,6 +54,11 @@ exports[`<AutoComplete /> Should show options list when clicking in the handle 1
           title="Option 4"
           value="OPT4"
         >
+          <span
+            class="option-highlight"
+          >
+             
+          </span>
           Option 4
         </li>
         <li
@@ -57,6 +67,11 @@ exports[`<AutoComplete /> Should show options list when clicking in the handle 1
           title="Option 5"
           value="OPT5"
         >
+          <span
+            class="option-highlight"
+          >
+             
+          </span>
           Option 5
         </li>
         <li
@@ -65,6 +80,11 @@ exports[`<AutoComplete /> Should show options list when clicking in the handle 1
           title="Option 6"
           value="OPT6"
         >
+          <span
+            class="option-highlight"
+          >
+             
+          </span>
           Option 6
         </li>
         <li
@@ -73,6 +93,11 @@ exports[`<AutoComplete /> Should show options list when clicking in the handle 1
           title="Option 7"
           value="OPT7"
         >
+          <span
+            class="option-highlight"
+          >
+             
+          </span>
           Option 7
         </li>
         <li
@@ -81,6 +106,11 @@ exports[`<AutoComplete /> Should show options list when clicking in the handle 1
           title="Option 8"
           value="OPT8"
         >
+          <span
+            class="option-highlight"
+          >
+             
+          </span>
           Option 8
         </li>
       </ul>

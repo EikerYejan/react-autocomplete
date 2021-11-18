@@ -5,7 +5,7 @@ import '../AutoComplete/AutoComplete.css'
 
 const AutoCompleteWithHooks = (props) => {
   const [showOptions, setShowOptions] = useState(props?.defaultOpen ?? false)
-  const [searchTerm, setSearchTerm] = useState()
+  const [searchTerm, setSearchTerm] = useState('')
   const [matchedOptions, setMatchedOptions] = useState([])
 
   const debounceTimeout = useRef()
@@ -38,7 +38,7 @@ const AutoCompleteWithHooks = (props) => {
   const onSearchChange = (e) => {
     const { value } = e.target
 
-    setSearchTerm(value)
+    setSearchTerm(value && value?.length > 0 ? value : undefined)
 
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current)
     debounceTimeout.current = setTimeout(onSearchFinish, 500, value)
@@ -50,7 +50,7 @@ const AutoCompleteWithHooks = (props) => {
     return () => window.removeEventListener('mousedown', onWindowClick)
   }, [])
 
-  const optionsToShow = typeof searchTerm === 'string' ? matchedOptions : options
+  const optionsToShow = typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
 
   return (
     <div ref={wrapperRef} className="AutoComplete__">
