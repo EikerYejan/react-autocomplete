@@ -6,7 +6,7 @@ class Option extends React.Component {
   render() {
     const { label, isSelected, searchTerm, ...restProps } = this.props
     const content =
-      typeof searchTerm === `string`
+      typeof searchTerm === `string` && searchTerm?.length > 0
         ? label.replace(new RegExp(searchTerm, 'i'), `<span class="option-highlight" >${searchTerm}&nbsp;</span>`)
         : label
 

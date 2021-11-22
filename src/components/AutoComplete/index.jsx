@@ -11,6 +11,7 @@ class AutoComplete extends React.Component {
 
     this.state = {
       showOptions: props?.defaultOpen ?? false,
+      searchTerm: '',
     }
     this.wrapperRef = createRef(null)
     this.debounceTimeout = createRef()
@@ -33,10 +34,10 @@ class AutoComplete extends React.Component {
   }
 
   onSearchChange = (e) => {
-    const { value } = e.target
+    const { value = '' } = e.target
     this.setState((prev) => ({
       ...prev,
-      searchTerm: value && value?.length > 0 ? value : undefined,
+      searchTerm: value,
     }))
 
     if (this.debounceTimeout.current) clearTimeout(this.debounceTimeout.current)

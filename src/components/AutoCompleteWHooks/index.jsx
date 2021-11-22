@@ -7,7 +7,7 @@ import Skeleton from '../Skeleton/Skeleton'
 
 const AutoCompleteWithHooks = (props) => {
   const [showOptions, setShowOptions] = useState(props?.defaultOpen ?? false)
-  const [searchTerm, setSearchTerm] = useState()
+  const [searchTerm, setSearchTerm] = useState('')
   const [matchedOptions, setMatchedOptions] = useState([])
 
   const debounceTimeout = useRef()
@@ -38,9 +38,9 @@ const AutoCompleteWithHooks = (props) => {
   }
 
   const onSearchChange = (e) => {
-    const { value } = e.target
+    const { value = '' } = e.target
 
-    setSearchTerm(value && value?.length > 0 ? value : undefined)
+    setSearchTerm(value)
 
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current)
     debounceTimeout.current = setTimeout(onSearchFinish, 500, value)
