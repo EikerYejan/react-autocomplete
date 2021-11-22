@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Option.css'
 
 class Option extends React.Component {
@@ -20,6 +21,12 @@ class Option extends React.Component {
       />
     )
   }
+}
+
+Option.propTypes = {
+  label: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool,
+  searchTerm: PropTypes.string,
 }
 
 export default Option

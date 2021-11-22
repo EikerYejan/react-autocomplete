@@ -1,4 +1,5 @@
 import React, { createRef } from 'react'
+import PropTypes from 'prop-types'
 import Option from '../Option/Option'
 import Loader from '../Loader'
 import './AutoComplete.css'
@@ -118,6 +119,14 @@ class AutoComplete extends React.Component {
       </div>
     )
   }
+}
+
+AutoComplete.propTypes = {
+  loading: PropTypes.bool,
+  onSearch: PropTypes.func.isRequired,
+  options: PropTypes.array.isRequired,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
 }
 
 export default AutoComplete
