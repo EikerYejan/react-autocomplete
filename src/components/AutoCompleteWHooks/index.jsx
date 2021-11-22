@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import Option from '../Option/Option'
 import Loader from '../Loader'
 import '../AutoComplete/AutoComplete.css'
+import Skeleton from '../Skeleton/Skeleton'
 
 const AutoCompleteWithHooks = (props) => {
   const [showOptions, setShowOptions] = useState(props?.defaultOpen ?? false)
@@ -52,6 +53,26 @@ const AutoCompleteWithHooks = (props) => {
 
   const optionsToShow = typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
 
+  const renderContent = () => {
+    if (loading)
+      return Array(9)
+        .fill(0)
+        .map((_, i) => <Skeleton key={i} />)
+
+    if (!optionsToShow || optionsToShow.length === 0)
+      return <li className="AutoComplete__empty-options">No data available</li>
+
+    return optionsToShow.map((option) => (
+      <Option
+        searchTerm={searchTerm}
+        isSelected={option.label === searchTerm || option.value === searchTerm}
+        onClick={() => onOptionClick(option)}
+        key={option.value}
+        {...option}
+      />
+    ))
+  }
+
   return (
     <div ref={wrapperRef} className="AutoComplete__">
       <p className="AutoComplete__label">{label}</p>
@@ -63,31 +84,12 @@ const AutoCompleteWithHooks = (props) => {
           type="text"
           className="AutoComplete__input"
         />
-        {loading ? (
-          <Loader className="AutoComplete__loader" />
-        ) : (
-          <button onClick={onHandleClick} type="button" title="Expand" className="AutoComplete__expand">
-            <img src={`/images/${showOptions ? 'expand_up' : 'expand'}.svg`} alt="expand" />
-          </button>
-        )}
+        {loading && <Loader className="AutoComplete__loader" />}
+        <button onClick={onHandleClick} type="button" title="Expand" className="AutoComplete__expand">
+          <img src={`/images/${showOptions ? 'expand_up' : 'expand'}.svg`} alt="expand" />
+        </button>
       </div>
-      {showOptions && (
-        <ul className="AutoComplete__options">
-          {!optionsToShow || optionsToShow.length === 0 ? (
-            <li className="AutoComplete__empty-options">No data available</li>
-          ) : (
-            optionsToShow.map((option) => (
-              <Option
-                searchTerm={searchTerm}
-                isSelected={option.label === searchTerm || option.value === searchTerm}
-                onClick={() => onOptionClick(option)}
-                key={option.value}
-                {...option}
-              />
-            ))
-          )}
-        </ul>
-      )}
+      {showOptions && <ul className="AutoComplete__options">{renderContent()}</ul>}
     </div>
   )
 }

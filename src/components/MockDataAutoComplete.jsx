@@ -16,7 +16,7 @@ class MockDataAutoComplete extends React.Component {
   onSearch = async (value) => {
     this.setState((prev) => ({ ...prev, loading: true }))
 
-    await timeout(2000)
+    await timeout(500)
 
     this.setState((prev) => ({ ...prev, loading: false }))
     return Promise.resolve(getMatch(value, this.state.options))

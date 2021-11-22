@@ -2,6 +2,7 @@ import React, { createRef } from 'react'
 import Option from '../Option/Option'
 import Loader from '../Loader'
 import './AutoComplete.css'
+import Skeleton from '../Skeleton/Skeleton'
 
 class AutoComplete extends React.Component {
   constructor(props) {
@@ -65,6 +66,31 @@ class AutoComplete extends React.Component {
 
     const optionsToShow = typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
 
+    const renderContent = () => {
+      if (loading)
+        return Array(9)
+          .fill(0)
+          .map((_, i) => <Skeleton key={i} />)
+
+      if (!optionsToShow || optionsToShow.length === 0)
+        return (
+          <li data-testid="autocomplete-no-data-item" className="AutoComplete__empty-options">
+            No data available
+          </li>
+        )
+
+      return optionsToShow.map((option) => (
+        <Option
+          searchTerm={searchTerm}
+          data-testid="autocomplete-option"
+          isSelected={option.label === searchTerm || option.value === searchTerm}
+          onClick={() => this.onOptionClick(option)}
+          key={option.value}
+          {...option}
+        />
+      ))
+    }
+
     return (
       <div ref={this.wrapperRef} className="AutoComplete__">
         <p className="AutoComplete__label">{label}</p>
@@ -77,40 +103,18 @@ class AutoComplete extends React.Component {
             className="AutoComplete__input"
             data-testid="autocomplete-input"
           />
-          {loading ? (
-            <Loader data-testid="autocomplete-loader" className="AutoComplete__loader" />
-          ) : (
-            <button
-              data-testid="autocomplete-handle"
-              onClick={this.onHandleClick}
-              type="button"
-              title="Expand"
-              className="AutoComplete__expand"
-            >
-              <img src={`/images/${showOptions ? 'expand_up' : 'expand'}.svg`} alt="expand" />
-            </button>
-          )}
+          {loading && <Loader data-testid="autocomplete-loader" className="AutoComplete__loader" />}
+          <button
+            data-testid="autocomplete-handle"
+            onClick={this.onHandleClick}
+            type="button"
+            title="Expand"
+            className="AutoComplete__expand"
+          >
+            <img src={`/images/${showOptions ? 'expand_up' : 'expand'}.svg`} alt="expand" />
+          </button>
         </div>
-        {showOptions && (
-          <ul className="AutoComplete__options">
-            {!optionsToShow || optionsToShow.length === 0 ? (
-              <li data-testid="autocomplete-no-data-item" className="AutoComplete__empty-options">
-                No data available
-              </li>
-            ) : (
-              optionsToShow.map((option) => (
-                <Option
-                  searchTerm={searchTerm}
-                  data-testid="autocomplete-option"
-                  isSelected={option.label === searchTerm || option.value === searchTerm}
-                  onClick={() => this.onOptionClick(option)}
-                  key={option.value}
-                  {...option}
-                />
-              ))
-            )}
-          </ul>
-        )}
+        {showOptions && <ul className="AutoComplete__options">{renderContent()}</ul>}
       </div>
     )
   }
