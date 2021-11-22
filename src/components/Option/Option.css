@@ -13,6 +13,7 @@
   background-color: var(--blue);
   color: var(--white);
   display: inline-block;
+  text-transform: capitalize;
 }
 
 .option:hover,
