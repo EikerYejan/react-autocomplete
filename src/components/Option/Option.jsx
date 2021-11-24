@@ -2,13 +2,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './Option.css'
+import { removeSlash } from '../../utils'
 
 const Option = (props) => {
   const { label, isSelected, searchTerm, ...restProps } = props
   const highlightHtml = `<span class="option-highlight" >${searchTerm}&nbsp;</span>`
   const content =
     typeof searchTerm === 'string' && searchTerm?.length > 0
-      ? label.replace(new RegExp(searchTerm, 'i'), highlightHtml)
+      ? label.replace(new RegExp(removeSlash(searchTerm), 'i'), highlightHtml)
       : label
 
   return (
