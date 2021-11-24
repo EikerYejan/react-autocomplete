@@ -18,13 +18,8 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "react-scripts test --watchAll=false --coverage",
-    "test:watch": "react-scripts test --verbose"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "test:watch": "react-scripts test --verbose",
+    "lint": "eslint 'src/**/*.{js,jsx}'"
   },
   "browserslist": {
     "production": [
@@ -50,5 +45,13 @@
         "statements": 80
       }
     }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "eslint-config-airbnb": "^19.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1"
   }
 }
