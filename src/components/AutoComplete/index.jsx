@@ -4,6 +4,7 @@ import Option from '../Option/Option'
 import Loader from '../Loader'
 import './AutoComplete.css'
 import Skeleton from '../Skeleton/Skeleton'
+import { sortByMatch } from '../../utils'
 
 class AutoComplete extends React.Component {
   constructor(props) {
@@ -72,8 +73,10 @@ class AutoComplete extends React.Component {
     const { showOptions, searchTerm, matchedOptions } = this.state
     const { label, placeholder, options, loading } = this.props
 
-    const optionsToShow =
-      typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
+    const optionsToShow = sortByMatch(
+      searchTerm,
+      typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options,
+    )
 
     const renderContent = () => {
       if (loading) {

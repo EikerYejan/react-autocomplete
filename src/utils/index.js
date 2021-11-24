@@ -1,3 +1,5 @@
+import levenshtein from 'js-levenshtein'
+
 export const removeSlash = (string = '') => {
   return string.replace(/\\/g, '').replace(/\//g, '')
 }
@@ -17,4 +19,13 @@ export const formatCharacher = (character) => {
     label: name,
     value: id,
   }
+}
+
+export const sortByMatch = (searchTerm, results = []) => {
+  return results.sort((a, b) => {
+    const aMatch = levenshtein(a.label, searchTerm)
+    const bMatch = levenshtein(b.label, searchTerm)
+
+    return aMatch - bMatch
+  })
 }
