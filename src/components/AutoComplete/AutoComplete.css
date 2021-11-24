@@ -99,3 +99,20 @@
   justify-content: center;
   align-items: center;
 }
+
+.Autocomplete-clear {
+  background: none;
+  border: none;
+  color: var(--blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  right: 60px;
+  top: 11px;
+}

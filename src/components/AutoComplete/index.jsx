@@ -13,8 +13,11 @@ class AutoComplete extends React.Component {
     this.state = {
       showOptions: props?.defaultOpen ?? false,
       searchTerm: '',
+      hasSelection: false,
     }
     this.wrapperRef = createRef(null)
+    this.inputRef = createRef(null)
+
     this.debounceTimeout = createRef()
   }
 
@@ -45,6 +48,7 @@ class AutoComplete extends React.Component {
       ...(prev ?? {}),
       searchTerm: selectedOption.label,
       showOptions: false,
+      hasSelection: true,
     }))
   }
 
@@ -53,6 +57,7 @@ class AutoComplete extends React.Component {
     this.setState((prev) => ({
       ...prev,
       searchTerm: value,
+      hasSelection: false,
     }))
 
     if (this.debounceTimeout.current) clearTimeout(this.debounceTimeout.current)
@@ -69,9 +74,15 @@ class AutoComplete extends React.Component {
     }))
   }
 
+  onClear = () => {
+    this.setState((prev) => ({ ...prev, searchTerm: '', hasSelection: false }))
+
+    if (this.inputRef.current) this.inputRef.current.focus()
+  }
+
   render() {
-    const { showOptions, searchTerm, matchedOptions } = this.state
-    const { label, placeholder, options, loading } = this.props
+    const { showOptions, searchTerm, matchedOptions, hasSelection } = this.state
+    const { label, placeholder, options, loading, allowClear } = this.props
 
     const optionsToShow = sortByMatch(
       searchTerm,
@@ -110,6 +121,7 @@ class AutoComplete extends React.Component {
         <p className="AutoComplete__label">{label}</p>
         <div className="AutoComplete__handle">
           <input
+            ref={this.inputRef}
             onChange={this.onSearchChange}
             value={searchTerm}
             placeholder={placeholder}
@@ -118,6 +130,16 @@ class AutoComplete extends React.Component {
             data-testid="autocomplete-input"
           />
           {loading && <Loader data-testid="autocomplete-loader" className="AutoComplete__loader" />}
+          {hasSelection && allowClear && !loading && (
+            <button
+              onClick={this.onClear}
+              className="Autocomplete-clear"
+              type="button"
+              title="Clear"
+            >
+              &times;
+            </button>
+          )}
           <button
             data-testid="autocomplete-handle"
             onClick={this.onHandleClick}
@@ -142,6 +164,7 @@ AutoComplete.propTypes = {
   placeholder: PropTypes.string,
   onSelect: PropTypes.func,
   defaultOpen: PropTypes.bool,
+  allowClear: PropTypes.bool,
 }
 
 AutoComplete.defaultProps = {
@@ -150,6 +173,7 @@ AutoComplete.defaultProps = {
   placeholder: null,
   defaultOpen: false,
   onSelect: null,
+  allowClear: true,
 }
 
 export default AutoComplete

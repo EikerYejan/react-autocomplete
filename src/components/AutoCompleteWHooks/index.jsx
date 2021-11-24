@@ -9,11 +9,13 @@ const AutoCompleteWithHooks = (props) => {
   const [showOptions, setShowOptions] = useState(props?.defaultOpen ?? false)
   const [searchTerm, setSearchTerm] = useState('')
   const [matchedOptions, setMatchedOptions] = useState([])
+  const [hasSelection, setHasSelection] = useState(false)
 
   const debounceTimeout = useRef()
   const wrapperRef = useRef(null)
+  const inputRef = useRef(null)
 
-  const { label, placeholder, options = [], loading, onSearch, onSelect } = props
+  const { label, placeholder, options = [], loading, onSearch, onSelect, allowClear } = props
 
   const onWindowClick = (e) => {
     if (wrapperRef?.current && !wrapperRef.current.contains(e.target)) {
@@ -30,6 +32,7 @@ const AutoCompleteWithHooks = (props) => {
 
     setShowOptions(false)
     setSearchTerm(selectedOption.label)
+    setHasSelection(true)
   }
 
   const onSearchFinish = async (value) => {
@@ -43,9 +46,17 @@ const AutoCompleteWithHooks = (props) => {
     const { value = '' } = e.target
 
     setSearchTerm(value)
+    setHasSelection(false)
 
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current)
     debounceTimeout.current = setTimeout(onSearchFinish, 500, value)
+  }
+
+  const onClear = () => {
+    setSearchTerm('')
+    setHasSelection(false)
+
+    if (inputRef.current) inputRef.current.focus()
   }
 
   useEffect(() => {
@@ -84,6 +95,7 @@ const AutoCompleteWithHooks = (props) => {
       <p className="AutoComplete__label">{label}</p>
       <div className="AutoComplete__handle">
         <input
+          ref={inputRef}
           onChange={onSearchChange}
           value={searchTerm}
           placeholder={placeholder}
@@ -91,6 +103,11 @@ const AutoCompleteWithHooks = (props) => {
           className="AutoComplete__input"
         />
         {loading && <Loader className="AutoComplete__loader" />}
+        {hasSelection && allowClear && !loading && (
+          <button onClick={onClear} className="Autocomplete-clear" type="button" title="Clear">
+            &times;
+          </button>
+        )}
         <button
           onClick={onHandleClick}
           type="button"
@@ -113,6 +130,7 @@ AutoCompleteWithHooks.propTypes = {
   placeholder: PropTypes.string,
   onSelect: PropTypes.func,
   defaultOpen: PropTypes.bool,
+  allowClear: PropTypes.bool,
 }
 
 AutoCompleteWithHooks.defaultProps = {
@@ -121,6 +139,7 @@ AutoCompleteWithHooks.defaultProps = {
   placeholder: null,
   defaultOpen: false,
   onSelect: null,
+  allowClear: true,
 }
 
 export default AutoCompleteWithHooks
