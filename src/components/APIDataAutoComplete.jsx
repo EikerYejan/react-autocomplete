@@ -13,11 +13,17 @@ class APIDataAutoComplete extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.fetchData()
+  }
+
   fetchData = async (value) => {
     try {
       this.setState((prev) => ({ ...prev, loading: true }))
 
-      const { characters = [] } = await fetchCharacters(value && value.length > 0 ? { nameStartsWith: value } : {})
+      const { characters = [] } = await fetchCharacters(
+        value && value.length > 0 ? { nameStartsWith: value } : {},
+      )
       const formattedData = characters.map(formatCharacher)
 
       this.setState((prev) => ({ ...prev, loading: false, options: formattedData }))
@@ -25,19 +31,19 @@ class APIDataAutoComplete extends React.Component {
       return formattedData
     } catch (error) {
       this.setState((prev) => ({ ...prev, loading: false }))
+
+      throw error
     }
   }
 
-  componentDidMount() {
-    this.fetchData()
-  }
-
   render() {
+    const { loading, options } = this.state
+
     return (
       <AutoComplete
-        loading={this.state.loading}
+        loading={loading}
         onSearch={this.fetchData}
-        options={this.state.options}
+        options={options}
         label="Marvel Characters (API Data)"
         placeholder="Type a name"
       />

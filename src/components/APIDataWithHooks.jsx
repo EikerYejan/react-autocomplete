@@ -11,7 +11,9 @@ const APIDataWithHooks = () => {
     try {
       setLoading(true)
 
-      const { characters = [] } = await fetchCharacters(value && value.length > 0 ? { nameStartsWith: value } : {})
+      const { characters = [] } = await fetchCharacters(
+        value && value.length > 0 ? { nameStartsWith: value } : {},
+      )
       const formattedData = characters.map(formatCharacher)
 
       setLoading(false)
@@ -20,6 +22,8 @@ const APIDataWithHooks = () => {
       return formattedData
     } catch (error) {
       setLoading(false)
+
+      throw error
     }
   }
 

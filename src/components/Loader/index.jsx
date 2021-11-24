@@ -1,15 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Loader.css'
 
-class Loader extends React.Component {
-  render() {
-    return (
-      <div {...this.props} className={`loader ${this.props?.className}`}>
-        <div />
-        <div />
-      </div>
-    )
-  }
+const Loader = (props) => (
+  <div {...props} className={`loader ${props?.className}`}>
+    <div />
+    <div />
+  </div>
+)
+
+Loader.propTypes = {
+  className: PropTypes.string,
+}
+
+Loader.defaultProps = {
+  className: '',
 }
 
 export default Loader

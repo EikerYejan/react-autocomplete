@@ -16,7 +16,13 @@ const onSelect = jest.fn()
 const placeHolder = 'Test'
 const label = 'Label'
 
-const props = { options, onSearch, onSelect, placeHolder, label }
+const props = {
+  options,
+  onSearch,
+  onSelect,
+  placeHolder,
+  label,
+}
 
 jest.useFakeTimers()
 jest.spyOn(global, 'setTimeout')
@@ -50,7 +56,7 @@ describe('<AutoComplete />', () => {
   })
 
   it('Should render "No Data" component', () => {
-    const { options, ...componentProps } = props
+    const { options: _, ...componentProps } = props
     const { getByTestId } = render(<AutoComplete {...componentProps} options={[]} defaultOpen />)
     const element = getByTestId('autocomplete-no-data-item')
 
@@ -59,8 +65,8 @@ describe('<AutoComplete />', () => {
 
   it('Should render options list', () => {
     const { getAllByTestId } = render(<AutoComplete {...props} defaultOpen />)
-    const options = getAllByTestId('autocomplete-option')
-    const option = options[0]
+    const autoCompleteOptions = getAllByTestId('autocomplete-option')
+    const option = autoCompleteOptions[0]
 
     expect(options.length).toEqual(props.options.length)
     userEvent.click(option)

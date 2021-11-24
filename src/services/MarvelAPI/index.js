@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import fetch from './client'
 
 export const fetchCharacters = async (params = {}) => {

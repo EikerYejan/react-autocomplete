@@ -19,6 +19,8 @@ const AutoCompleteWithHooks = (props) => {
     if (wrapperRef?.current && !wrapperRef.current.contains(e.target)) {
       return setShowOptions(false)
     }
+
+    return null
   }
 
   const onHandleClick = () => setShowOptions((prev) => !prev)
@@ -31,10 +33,10 @@ const AutoCompleteWithHooks = (props) => {
   }
 
   const onSearchFinish = async (value) => {
-    const matchedOptions = await onSearch(value)
+    const searchResult = await onSearch(value)
 
     setShowOptions(true)
-    setMatchedOptions(matchedOptions)
+    setMatchedOptions(searchResult)
   }
 
   const onSearchChange = (e) => {
@@ -52,16 +54,19 @@ const AutoCompleteWithHooks = (props) => {
     return () => window.removeEventListener('mousedown', onWindowClick)
   }, [])
 
-  const optionsToShow = typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
+  const optionsToShow =
+    typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
 
   const renderContent = () => {
-    if (loading)
+    if (loading) {
       return Array(9)
         .fill(0)
         .map((_, i) => <Skeleton key={i} />)
+    }
 
-    if (!optionsToShow || optionsToShow.length === 0)
+    if (!optionsToShow || optionsToShow.length === 0) {
       return <li className="AutoComplete__empty-options">No data available</li>
+    }
 
     return optionsToShow.map((option) => (
       <Option
@@ -86,7 +91,12 @@ const AutoCompleteWithHooks = (props) => {
           className="AutoComplete__input"
         />
         {loading && <Loader className="AutoComplete__loader" />}
-        <button onClick={onHandleClick} type="button" title="Expand" className="AutoComplete__expand">
+        <button
+          onClick={onHandleClick}
+          type="button"
+          title="Expand"
+          className="AutoComplete__expand"
+        >
           <img src={`/images/${showOptions ? 'expand_up' : 'expand'}.svg`} alt="expand" />
         </button>
       </div>
@@ -98,9 +108,19 @@ const AutoCompleteWithHooks = (props) => {
 AutoCompleteWithHooks.propTypes = {
   loading: PropTypes.bool,
   onSearch: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  onSelect: PropTypes.func,
+  defaultOpen: PropTypes.bool,
+}
+
+AutoCompleteWithHooks.defaultProps = {
+  loading: false,
+  label: null,
+  placeholder: null,
+  defaultOpen: false,
+  onSelect: null,
 }
 
 export default AutoCompleteWithHooks

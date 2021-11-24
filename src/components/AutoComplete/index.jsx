@@ -17,10 +17,20 @@ class AutoComplete extends React.Component {
     this.debounceTimeout = createRef()
   }
 
+  componentDidMount() {
+    window.addEventListener('mousedown', this.onWindowClick)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousedown', this.onWindowClick)
+  }
+
   onWindowClick = (e) => {
     if (this.wrapperRef?.current && !this.wrapperRef.current.contains(e.target)) {
       return this.setState((prev) => ({ ...(prev ?? {}), showOptions: false }))
     }
+
+    return null
   }
 
   onHandleClick = () => {
@@ -30,7 +40,11 @@ class AutoComplete extends React.Component {
   onOptionClick = (selectedOption) => {
     if (this.props?.onSelect) this.props.onSelect(selectedOption)
 
-    return this.setState((prev) => ({ ...(prev ?? {}), searchTerm: selectedOption.label, showOptions: false }))
+    return this.setState((prev) => ({
+      ...(prev ?? {}),
+      searchTerm: selectedOption.label,
+      showOptions: false,
+    }))
   }
 
   onSearchChange = (e) => {
@@ -54,32 +68,27 @@ class AutoComplete extends React.Component {
     }))
   }
 
-  componentDidMount() {
-    window.addEventListener('mousedown', this.onWindowClick)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mousedown', this.onWindowClick)
-  }
-
   render() {
     const { showOptions, searchTerm, matchedOptions } = this.state
     const { label, placeholder, options, loading } = this.props
 
-    const optionsToShow = typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
+    const optionsToShow =
+      typeof searchTerm === 'string' && typeof searchTerm.length > 0 ? matchedOptions : options
 
     const renderContent = () => {
-      if (loading)
+      if (loading) {
         return Array(9)
           .fill(0)
           .map((_, i) => <Skeleton key={i} />)
+      }
 
-      if (!optionsToShow || optionsToShow.length === 0)
+      if (!optionsToShow || optionsToShow.length === 0) {
         return (
           <li data-testid="autocomplete-no-data-item" className="AutoComplete__empty-options">
             No data available
           </li>
         )
+      }
 
       return optionsToShow.map((option) => (
         <Option
@@ -125,9 +134,19 @@ class AutoComplete extends React.Component {
 AutoComplete.propTypes = {
   loading: PropTypes.bool,
   onSearch: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  onSelect: PropTypes.func,
+  defaultOpen: PropTypes.bool,
+}
+
+AutoComplete.defaultProps = {
+  loading: false,
+  label: null,
+  placeholder: null,
+  defaultOpen: false,
+  onSelect: null,
 }
 
 export default AutoComplete

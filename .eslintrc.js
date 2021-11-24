@@ -44,5 +44,6 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'object-curly-newline': 'off',
     'operator-linebreak': 'off',
+    'no-promise-executor-return': 'off',
   },
 }
