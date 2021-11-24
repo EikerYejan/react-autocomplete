@@ -1,7 +1,7 @@
 import React from 'react'
 import AutoComplete from './AutoComplete'
 import mockOptions from '../mocks/characters.json'
-import { getMatch, timeout } from '../utils'
+import { getMatch } from '../utils'
 
 class MockDataAutoComplete extends React.Component {
   constructor(props) {
@@ -14,11 +14,6 @@ class MockDataAutoComplete extends React.Component {
   }
 
   onSearch = async (value) => {
-    this.setState((prev) => ({ ...prev, loading: true }))
-
-    await timeout(500)
-
-    this.setState((prev) => ({ ...prev, loading: false }))
     return Promise.resolve(getMatch(value, this.state.options))
   }
 
