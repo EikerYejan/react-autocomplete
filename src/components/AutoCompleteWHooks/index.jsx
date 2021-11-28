@@ -4,6 +4,7 @@ import Option from '../Option/Option'
 import Loader from '../Loader'
 import '../AutoComplete/AutoComplete.css'
 import Skeleton from '../Skeleton/Skeleton'
+import { isAsyncFunction } from '../../utils'
 
 const AutoCompleteWithHooks = (props) => {
   const [showOptions, setShowOptions] = useState(props?.defaultOpen ?? false)
@@ -36,7 +37,7 @@ const AutoCompleteWithHooks = (props) => {
   }
 
   const onSearchFinish = async (value) => {
-    const searchResult = await onSearch(value)
+    const searchResult = isAsyncFunction(onSearch) ? await onSearch(value) : onSearch(value)
 
     setShowOptions(true)
     setMatchedOptions(searchResult)

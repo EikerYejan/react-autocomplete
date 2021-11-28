@@ -13,13 +13,14 @@ class MockDataAutoComplete extends React.Component {
     }
   }
 
-  onSearch = async (value) => {
-    return Promise.resolve(getMatch(value, this.state.options))
+  onSearch = (value) => {
+    return getMatch(value, this.state.options)
   }
 
   render() {
     return (
       <AutoComplete
+        typingTimeout={0}
         loading={this.state.loading}
         onSearch={this.onSearch}
         options={this.state.options}

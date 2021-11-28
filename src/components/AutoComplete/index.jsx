@@ -4,7 +4,7 @@ import Option from '../Option/Option'
 import Loader from '../Loader'
 import './AutoComplete.css'
 import Skeleton from '../Skeleton/Skeleton'
-import { sortByMatch } from '../../utils'
+import { isAsyncFunction, sortByMatch } from '../../utils'
 
 class AutoComplete extends React.Component {
   constructor(props) {
@@ -61,11 +61,17 @@ class AutoComplete extends React.Component {
     }))
 
     if (this.debounceTimeout.current) clearTimeout(this.debounceTimeout.current)
-    this.debounceTimeout.current = setTimeout(this.onSearchFinish, 500, value)
+    this.debounceTimeout.current = setTimeout(
+      this.onSearchFinish,
+      this.props.typingTimeout ?? 500,
+      value,
+    )
   }
 
   onSearchFinish = async (value) => {
-    const matchedOptions = await this.props.onSearch(value)
+    const matchedOptions = isAsyncFunction(this.props.onSearch)
+      ? await this.props.onSearch(value)
+      : this.props.onSearch(value)
 
     return this.setState((prev) => ({
       ...prev,
@@ -165,6 +171,7 @@ AutoComplete.propTypes = {
   onSelect: PropTypes.func,
   defaultOpen: PropTypes.bool,
   allowClear: PropTypes.bool,
+  typingTimeout: PropTypes.number,
 }
 
 AutoComplete.defaultProps = {
@@ -174,6 +181,7 @@ AutoComplete.defaultProps = {
   defaultOpen: false,
   onSelect: null,
   allowClear: true,
+  typingTimeout: 500,
 }
 
 export default AutoComplete

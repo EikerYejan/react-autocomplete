@@ -29,3 +29,7 @@ export const sortByMatch = (searchTerm, results = []) => {
     return aMatch - bMatch
   })
 }
+
+export const isAsyncFunction = (fn) => {
+  return fn.constructor.name === 'AsyncFunction'
+}
