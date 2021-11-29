@@ -1,7 +1,9 @@
 import React from 'react'
 import './Skeleton.css'
 
-const Skeleton = (props) => {
+type Props = React.HTMLAttributes<HTMLDivElement>
+
+const Skeleton = (props: Props) => {
   return (
     <div {...props} className="Skeleton">
       <span className="Skeleton-shine" />
