@@ -6,7 +6,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  plugins: ['prettier', 'jsx-a11y'],
+  plugins: ['prettier', 'jsx-a11y', '@typescript-eslint'],
   extends: [
     'react-app',
     'react-app/jest',
@@ -19,6 +19,8 @@ module.exports = {
     'plugin:prettier/recommended',
     'airbnb',
     'airbnb/hooks',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -31,6 +33,12 @@ module.exports = {
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        paths: ['src'],
+      },
     },
   },
   root: true,
@@ -45,5 +53,9 @@ module.exports = {
     'object-curly-newline': 'off',
     'operator-linebreak': 'off',
     'no-promise-executor-return': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'import/extensions': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
   },
 }
