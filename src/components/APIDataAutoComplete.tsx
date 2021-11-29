@@ -2,9 +2,16 @@ import React from 'react'
 import AutoComplete from './AutoComplete'
 import { formatCharacher } from '../utils'
 import { fetchCharacters } from '../services/MarvelAPI'
+import { Option } from '../types'
 
-class APIDataAutoComplete extends React.Component {
-  constructor(props) {
+type Props = React.ComponentProps<typeof AutoComplete>
+type State = {
+  loading: boolean
+  options: Option[]
+}
+
+class APIDataAutoComplete extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -17,7 +24,7 @@ class APIDataAutoComplete extends React.Component {
     this.fetchData()
   }
 
-  fetchData = async (value) => {
+  fetchData = async (value?: string) => {
     try {
       this.setState((prev) => ({ ...prev, loading: true }))
 

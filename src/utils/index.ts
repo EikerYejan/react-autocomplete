@@ -13,7 +13,7 @@ export const getMatch = (searchTerm: string, options: Option[]) => {
 
 export const timeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export const formatCharacher = (character: Character) => {
+export const formatCharacher = (character: Character): Option => {
   const { name, id } = character
 
   return {

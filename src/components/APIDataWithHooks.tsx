@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import AutoCompleteWithHooks from './AutoCompleteWHooks'
 import { fetchCharacters } from '../services/MarvelAPI'
 import { formatCharacher } from '../utils'
+import { Option } from '../types'
 
 const APIDataWithHooks = () => {
   const [loading, setLoading] = useState(true)
-  const [options, setOptions] = useState([])
+  const [options, setOptions] = useState<Option[]>([])
 
-  const fetchData = async (value) => {
+  const fetchData = async (value?: string) => {
     try {
       setLoading(true)
 

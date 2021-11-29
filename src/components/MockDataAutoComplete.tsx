@@ -2,9 +2,16 @@ import React from 'react'
 import AutoComplete from './AutoComplete'
 import mockOptions from '../mocks/characters.json'
 import { getMatch } from '../utils'
+import { Option } from '../types'
 
-class MockDataAutoComplete extends React.Component {
-  constructor(props) {
+type Props = React.ComponentProps<typeof AutoComplete>
+type State = {
+  loading: boolean
+  options: Option[]
+}
+
+class MockDataAutoComplete extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -13,8 +20,8 @@ class MockDataAutoComplete extends React.Component {
     }
   }
 
-  onSearch = (value) => {
-    return getMatch(value, this.state.options)
+  onSearch = (value?: string) => {
+    return value && value.length > 0 ? getMatch(value, this.state.options) : []
   }
 
   render() {
